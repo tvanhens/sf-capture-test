@@ -13,7 +13,7 @@
    :body (pr-str ["Hello" :from 'Heroku])})
 
 (defroutes app
-  (GET "/" request
+  (POST "/" request
        (splash request))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
