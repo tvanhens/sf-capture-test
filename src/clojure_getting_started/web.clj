@@ -6,14 +6,15 @@
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]))
 
-(defn splash []
+(defn splash [request]
+  (println request)
   {:status 200
    :headers {"Content-Type" "text/plain"}
    :body (pr-str ["Hello" :from 'Heroku])})
 
 (defroutes app
-  (GET "/" []
-       (splash))
+  (GET "/" request
+       (splash request))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
 
